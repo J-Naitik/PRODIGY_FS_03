@@ -1,0 +1,28 @@
+<!-- Inside your HTML body -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="300" height="100">
+  <style>
+    .icon { fill:rgb(255, 255, 255); }
+    <!-- .icon:hover{fill:rgb(0, 0, 0);} -->
+    <!-- .icon {
+  fill: white;
+  stroke: black;
+  stroke-width: 2;
+  paint-order: stroke; /* ensures stroke shows around fill */
+} -->
+    .text-main {
+      font-family: 'Arial Black', sans-serif;
+      font-size: 60px;
+      font-weight: bold;
+    }
+    .text-tagline {
+      font-family: 'Arial', sans-serif;
+      font-size: 24px;
+      letter-spacing: 4px;
+    }
+  </style>
+  <rect x="40" y="60" width="60" height="10" rx="2" class="icon"/>
+  <rect x="40" y="80" width="40" height="10" rx="2" class="icon"/>
+  <rect x="40" y="100" width="20" height="10" rx="2" class="icon"/>
+  <text x="130" y="110" class="text-main icon">ZustVeg</text>
+  <text x="130" y="150" class="text-tagline icon">FAST &amp; FRESH DELIVERY</text>
+</svg>
