@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ZustVeg - Checkout</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .checkout-box {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    .btn-pay {
+      background-color: #28a745;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      padding: 10px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+
+    .btn-pay:hover {
+      background-color: #218838;
+    }
+
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #ccc;
+      border-top-color: #28a745;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 30px auto;
+      display: none;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .success-checkmark {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: none;
+      border: 4px solid #28a745;
+      position: relative;
+      margin: 30px auto;
+    }
+
+    .success-checkmark::after {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 14px;
+      width: 20px;
+      height: 40px;
+      border-right: 4px solid #28a745;
+      border-bottom: 4px solid #28a745;
+      transform: rotate(45deg);
+      animation: checkmark 0.5s ease-in-out forwards;
+    }
+
+    @keyframes checkmark {
+      0% {
+        height: 0;
+        width: 0;
+        opacity: 0;
+      }
+      100% {
+        height: 40px;
+        width: 20px;
+        opacity: 1;
+      }
+    }
+
+    .message {
+      font-size: 1.1rem;
+      color: #333;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="checkout-box">
+    <h2>Checkout</h2>
+    <!-- Dynamically load the total amount here -->
+    <p>Total: ₹<span id="total-amount">0.00</span></p>
+    <button class="btn-pay" onclick="startPayment()">Pay Now</button>
+
+    <div class="loading-spinner" id="spinner"></div>
+    <div class="success-checkmark" id="checkmark"></div>
+    <p class="message" id="message"></p>
+    <a href="http://localhost:3000" style="text-decoration: none;">
+        <button style="
+          padding: 12px 24px;
+          background-color: #09ff00;
+          border: none;
+          border-radius: 6px;
+          color: #000;
+          font-weight: bold;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        "
+        onmouseover="this.style.backgroundColor='#005ecb'; this.style.color='#fff';"
+        onmouseout="this.style.backgroundColor='#09ff00'; this.style.color='#000';">
+          Shop More &gt;
+        </button>
+      </a>
+      
+  </div>
+
+  <script>
+    // Function to load the cart total amount from localStorage
+    function loadCartTotal() {
+      let total = 0;
+
+      // Retrieve cart items from localStorage
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+      });
+
+      // Update the total amount displayed on the page
+      document.getElementById('total-amount').innerText = total.toFixed(2);
+    }
+
+    // Call the loadCartTotal function when the page loads
+    loadCartTotal();
+
+    function startPayment() {
+      document.querySelector(".btn-pay").style.display = "none";
+      const spinner = document.getElementById("spinner");
+      const checkmark = document.getElementById("checkmark");
+      const message = document.getElementById("message");
+
+      spinner.style.display = "block";
+      message.innerText = "Processing Payment...";
+
+      setTimeout(() => {
+        spinner.style.display = "none";
+        checkmark.style.display = "block";
+        message.innerText = "Payment Successful! 🎉";
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>

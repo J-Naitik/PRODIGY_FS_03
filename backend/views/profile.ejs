@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>User Profile - ZustVeg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #2e2e2e, #000000);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .profile-card {
+      background: #1f1f1f;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 255, 0, 0.2);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .profile-card h2 {
+      color: #40ff00;
+      margin-bottom: 20px;
+    }
+
+    .profile-item {
+      background: #2e2e2e;
+      margin: 15px 0;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .profile-item:hover {
+      transform: scale(1.03);
+      background-color: #333;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .back-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #09ff00;
+      border: none;
+      color: #000;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .home-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #ffd500;
+      border: none;
+      color: #000;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #005ecb;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-card">
+    <h2>Welcome, <span id="profileName">User</span> 👋</h2>
+    <div class="profile-item">📞 Mobile: <span id="profileMobile"></span></div>
+    <div class="profile-item">📍 Location: <span id="profileLocation"></span></div>
+    <button class="back-button" onclick="logout()">Logout</button>
+    <a href="http://localhost:3000">
+
+        <button class="home-button" >Home</button>
+    </a>
+  </div>
+
+  <script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const name = localStorage.getItem("signName") || "User";
+    const mobile = localStorage.getItem("signMobile") || "N/A";
+    const location = localStorage.getItem("signLocation") || "N/A";
+
+    console.log(name);
+    console.log(mobile);
+    console.log(location);
+
+    document.getElementById("profileName").textContent = name;
+    document.getElementById("profileMobile").textContent = mobile;
+    document.getElementById("profileLocation").textContent = location;
+  });
+
+  function logout() {
+    window.location.href = "/"; // Back to login page
+  }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Upload New Product - ZustVeg</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="shortcut icon" href="/assets/mainlogo.png" type="image/x-icon">
+</head>
+<body>
+
+  <!-- Navbar -->
+ 
+      <div>
+        <object type="image/svg+xml" data="/assets/zust-logo.svg" width="300" height="100"></object>
+      </div>
+
+
+  <!-- Upload Form -->
+  <section style="padding: 40px; max-width: 600px; margin: auto;">
+    <h1 style="text-align: center; margin-bottom: 30px;">Upload New Product</h1>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data" id="uploadForm" style="display: flex; flex-direction: column; gap: 15px;">
+      <label for="category">Category:</label>
+      <select name="category" id="category" required style="padding: 10px; border-radius: 8px;">
+        <option value="">--Select Category--</option>
+        <option value="Fruit">Fruit</option>
+        <option value="Vegetable">Vegetable</option>
+        <option value="Juice">Juice</option>
+        <option value="Exotic">Exotic</option>
+      </select>
+
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" required style="padding: 10px; border-radius: 8px;">
+
+      <label for="price">Price (₹):</label>
+      <input type="text" name="price" id="price" required style="padding: 10px; border-radius: 8px;">
+
+      <label for="about">About:</label>
+      <textarea name="about" id="about" rows="4" required style="padding: 10px; border-radius: 8px;"></textarea>
+
+      <label for="image">Product Image:</label>
+      <input type="file" name="image" id="image" accept="image/*" required>
+
+      <button type="submit" style="padding: 12px; background-color: var(--highlight-green); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+        Upload Product
+      </button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>Our Story</h4>
+        <ul>
+          <li><a href="http://localhost:3000/about">About ZustVeg</a></li>
+          <li><a href="http://localhost:3000/how-it-work">How It Works</a></li>
+          <li><a href="http://localhost:3000/partener-with-us">Partner With Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="http://localhost:3000/faq">FAQs</a></li>
+          <li><a href="http://localhost:3000/return">Returns</a></li>
+          <li><a href="http://localhost:3000/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-column signup">
+        <h4>Sign Up</h4>
+        <p>Get fresh offers & updates in your inbox.</p>
+        <form>
+          <input type="email" placeholder="Your email" />
+          <button>→</button>
+        </form>
+      </div>
+      <div class="footer-column">
+        <h4>Follow Us</h4>
+        <p>Instagram | YouTube | Facebook</p>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2025 ZustVeg. Grown with ❤️ in India.</p>
+  </footer>
+
+</body>
+</html>

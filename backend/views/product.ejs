@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><%= title %> - ZustVeg</title>
+  <link rel="stylesheet" href="/css/secondry.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="shortcut icon" href="/assets/mainlogo.png" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/main.css">
+</head>
+<body >
+
+ 
+
+  <!-- Offer Bar -->
+  <section class="offer-bar">
+    <p>🚛 Free Delivery on Orders Over ₹499! Taste the Goodness! 🍓 Special Deals on Juices, Fruits & More – Limited Time Only! Freshness Delivered Daily • 100% Organic • Upto 30% Off!</p>
+  </section>
+
+ 
+    <nav class="nav-bar" >
+      <ul class="list1">
+        <li>
+          <object type="image/svg+xml" data="/assets/zust-logo.svg" width="300" height="100"></object>
+        </li>
+      </ul>
+      <ul class="list2">
+        <li><a href="http://localhost:3000/login"><span class="material-symbols-outlined">account_circle</span></a></li>
+        <li><a href="http://localhost:3000/cart"><span class="material-symbols-outlined">shopping_cart_checkout</span></a></li>
+      </ul>
+    </nav>
+
+
+  <!-- Product Details -->
+  <section class="testimonial-section" >
+    <h1 class="section-title"><%= title %></h1>
+    <div class="card-grid" style="color: black;">
+      <% products.forEach(product => { %>
+        <div class="testimonial-card horizontal-card" style="color: black;">
+          <div class="card-image">
+            <img src="<%= product.image %>" alt="<%= product.name %>">
+          </div>
+          <div class="card-details">
+            <div class="card-header">
+              <h2 class="highlight-green"><%= product.name %></h2>
+              <div class="price-controls">
+                <span class="stars" style="background-color: rgb(255, 201, 119); padding: 3px; border-radius: 10px; color: black; font-weight: 700;">₹<%= product.price %></span>
+              
+                <!-- − Button -->
+                <form action="/cart/decrease" method="POST" style="display:inline;">
+                  <input type="hidden" name="productId" value="<%= product._id %>">
+                  <button class="qty-btn minus" type="submit" data-id="<%= product._id %>">−</button>
+                </form>
+              
+                <span class="quantity" id="qty-<%= product._id %>">0</span>
+              
+                <!-- + Button -->
+                <form action="/cart/increase"  method="POST" style="display:inline;">
+                  <input type="hidden" name="id" value="<%= product._id %>">
+                  <input type="hidden" name="name" value="<%= product.name %>">
+                  <input type="hidden" name="price" value="<%= product.price %>">
+                  <input type="hidden" name="image" value="<%= product.image %>">
+                  <input type="hidden" name="about" value="<%= product.about %>">
+                  <button class="qty-btn plus" type="submit" data-id="<%= product._id %>">+</button>
+                </form>
+              </div>
+              
+              <div class="total-ammount" id="total-<%= product._id %>">
+                <!-- Total amount will appear here -->
+              </div>
+            </div>
+            <p class="about-text"><%= product.about %></p>
+          </div>
+        </div>
+      <% }); %>
+<a href="http://localhost:3000/cart">
+
+  
+  <div class="cart-summary-card" id="cart-summary">
+    <h3>Cart Summary</h3>
+    <p id="cart-total-amount">Total Amount: ₹0.00</p>
+  </div>
+  
+</a>
+    </div>
+  </section>
+  
+  
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>Our Story</h4>
+        <ul>
+          <li><a href="http://localhost:3000/about">About ZustVeg</a></li>
+          <li><a href="http://localhost:3000/how-it-work">How It Works</a></li>
+          <li><a href="http://localhost:3000/partener-with-us">Partner With Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="http://localhost:3000/faq">FAQs</a></li>
+          <li><a href="http://localhost:3000/return">Returns</a></li>
+          <li><a href="http://localhost:3000/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-column signup">
+        <h4>Sign Up</h4>
+        <p>Get fresh offers & updates in your inbox.</p>
+        <form>
+          <input type="email" placeholder="Your email" />
+          <button>→</button>
+        </form>
+      </div>
+      <div class="footer-column">
+        <h4>Follow Us</h4>
+        <p>Instagram | YouTube | Facebook</p>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2025 ZustVeg. Grown with ❤️ in India.</p>
+    <p  >© Made By Naitik Jain</p>
+  </footer>
+  <script src="/js/product-button.js"></script>
+</body>
+</html>

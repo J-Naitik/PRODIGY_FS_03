@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><%= title %> - ZustVeg</title>
+  <link rel="stylesheet" href="/css/secondry.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="shortcut icon" href="/assets/mainlogo.png" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/main.css">
+  <style>
+    /* General styling */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #000000;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    .testimonial-section {
+      text-align: center;
+      padding: 50px 20px;
+      background-color: #1e1e1e;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin: 30px 0;
+    }
+
+    .section-title {
+      font-size: 32px;
+      color: #333;
+      margin-bottom: 40px;
+    }
+
+    /* Card Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      justify-items: center;
+    }
+
+    /* Testimonial Card */
+    .testimonial-card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 350px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: scale(1.05);
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-details {
+      padding: 20px;
+    }
+
+    .card-header h2 {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .highlight-green {
+      color: #40ff00;
+    }
+
+    .price-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stars {
+      font-size: 18px;
+      color: #ff9800;
+    }
+
+    .qty-btn {
+      padding: 5px 10px;
+      background-color: #09ff00;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .qty-btn:hover {
+      background-color: #005ecb;
+    }
+
+    .about-text {
+      font-size: 16px;
+      margin-top: 15px;
+      color: #666;
+    }
+
+    .card-controls {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .delete-btn, .edit-btn {
+      padding: 8px 20px;
+      border: none;
+      background-color: #f44336;
+      color: white;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .edit-btn {
+      background-color: #09ff00;
+    }
+
+    .delete-btn:hover {
+      background-color: #d32f2f;
+    }
+
+    .edit-btn:hover {
+      background-color: #1b5e20;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #333;
+      color: #fff;
+      padding: 40px 20px;
+      margin-top: 50px;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .footer-column {
+      flex: 1;
+      margin-right: 20px;
+    }
+
+    .footer-column h4 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-column ul li a {
+      color: #fff;
+      text-decoration: none;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .footer-column ul li a:hover {
+      color: #40ff00;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    .signup form {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .signup input {
+      padding: 8px;
+      font-size: 14px;
+      width: 70%;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .signup button {
+      padding: 8px 16px;
+      background-color: #09ff00;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .signup button:hover {
+      background-color: #005ecb;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <object type="image/svg+xml" data="/assets/zust-logo.svg" width="300" height="100"></object>
+  </div>
+
+  <!-- Product Details -->
+  <section class="testimonial-section">
+    <h1 class="section-title"><%= title %></h1>
+    <div class="card-grid" style="color: black;">
+      <% products.forEach(product => { %>
+        <div class="testimonial-card horizontal-card" style="color: black;">
+          <div class="card-image">
+            <img src="<%= product.image %>" alt="<%= product.name %>">
+          </div>
+          <div class="card-details">
+            <div class="card-header">
+              <h2 class="highlight-green"><%= product.name %></h2>
+              <div class="price-controls">
+                <span class="stars">₹<%= product.price %></span>
+                <button class="qty-btn minus" data-id="<%= product._id %>">−</button>
+                <span class="quantity" id="qty-<%= product._id %>">0</span>
+                <button class="qty-btn plus" data-id="<%= product._id %>">+</button>
+              </div>
+              <div class="total-ammount" id="total-<%= product._id %>">
+                <!-- Total amount will appear here -->
+              </div>
+            </div>
+            <p class="about-text"><%= product.about %></p>
+            <div class="card-controls">
+              <form method="POST" action="/<%= title.toLowerCase().split(' ')[0] %>/delete/<%= product._id %>" onsubmit="return confirm('Are you sure you want to delete this product?')">
+                <button type="submit" class="delete-btn">Delete</button>
+              </form>
+              <form method="GET" action="/<%= title.toLowerCase().split(' ')[0] %>/edit/<%= product._id %>">
+                <button type="submit" class="edit-btn">Edit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>Our Story</h4>
+        <ul>
+          <li><a href="http://localhost:3000/about">About ZustVeg</a></li>
+          <li><a href="http://localhost:3000/how-it-work">How It Works</a></li>
+          <li><a href="http://localhost:3000/partener-with-us">Partner With Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="http://localhost:3000/faq">FAQs</a></li>
+          <li><a href="http://localhost:3000/return">Returns</a></li>
+          <li><a href="http://localhost:3000/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-column signup">
+        <h4>Sign Up</h4>
+        <p>Get fresh offers & updates in your inbox.</p>
+        <form>
+          <input type="email" placeholder="Your email" />
+          <button>→</button>
+        </form>
+      </div>
+      <div class="footer-column">
+        <h4>Follow Us</h4>
+        <p>Instagram | YouTube | Facebook</p>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2025 ZustVeg. Grown with ❤️ in India.</p>
+    <p class="footer-bottom">© Made By Naitik Jain</p>
+  </footer>
+
+  <script src="/js/remove.js"></script>
+</body>
+</html>

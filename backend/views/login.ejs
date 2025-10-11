@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="shortcut icon" href="/assets/mainlogo.png" type="image/x-icon">
+  <title>Login & Signup Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #333;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 900px;
+      background: #fff;
+      border-radius: 10px;
+      display: flex;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .form-container {
+      flex: 1;
+      padding: 40px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #555;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .input-group input:focus {
+      border-color: #40ff00;
+      outline: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: #09ff00;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #005ecb;
+    }
+
+    .toggle {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .toggle span {
+      color: #0072ff;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .right-panel {
+      background: url("/assets/login.webp") no-repeat center;
+      background-size: cover;
+      flex: 1;
+      display: none;
+    }
+
+    #loginMessage {
+      font-size: 14px;
+      margin-top: 10px;
+      color: red;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .right-panel {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Login Form -->
+  <div class="form-container" id="login-form">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" id="loginEmail" required />
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="loginPassword" required />
+      </div>
+      <button type="submit" class="btn">Login</button>
+      <div id="loginMessage"></div>
+      <div class="toggle">
+        Don't have an account? <span onclick="toggleForm()">Sign Up</span>
+      </div>
+    </form>
+  </div>
+
+  <!-- Signup Form -->
+  <div class="form-container" id="signup-form" style="display: none;">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+      <div class="input-group">
+        <label>Full Name</label>
+        <input type="text" id="signName" required />
+      </div>
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" id="signEmail" required />
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="signPassword" required />
+      </div>
+      <div class="input-group">
+        <label>Mobile Number</label>
+        <input type="tel" id="signMobile" pattern="\d{10}" required />
+      </div>
+      <div class="input-group">
+        <label>Location</label>
+        <input type="text" id="signLocation" required />
+      </div>
+      <button type="submit" class="btn">Sign Up</button>
+      <div class="toggle">
+        Already have an account? <span onclick="toggleForm()">Login</span>
+      </div>
+    </form>
+  </div>
+
+  <div class="right-panel"></div>
+</div>
+
+<script>
+  function toggleForm() {
+    const loginForm = document.getElementById("login-form");
+    const signupForm = document.getElementById("signup-form");
+
+    if (loginForm.style.display === "none") {
+      loginForm.style.display = "block";
+      signupForm.style.display = "none";
+    } else {
+      loginForm.style.display = "none";
+      signupForm.style.display = "block";
+    }
+  }
+
+  // SIGN UP
+  document.getElementById("signupForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("signName").value.trim();
+    const email = document.getElementById("signEmail").value.trim();
+    const password = document.getElementById("signPassword").value.trim();
+    const mobile = document.getElementById("signMobile").value.trim();
+    const location = document.getElementById("signLocation").value.trim();
+
+    if (!/^\d{10}$/.test(mobile)) {
+      alert("Enter valid 10-digit mobile number.");
+      return;
+    }
+
+    localStorage.setItem("signName", name);
+    localStorage.setItem("signEmail", email);
+    localStorage.setItem("signPassword", password);
+    localStorage.setItem("signMobile", mobile);
+    localStorage.setItem("signLocation", location);
+
+    alert("Sign up successful! Please log in.");
+    toggleForm();
+  });
+
+  // LOGIN
+  document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+
+    const storedEmail = localStorage.getItem("signEmail");
+    const storedPassword = localStorage.getItem("signPassword");
+
+    const msg = document.getElementById("loginMessage");
+
+    if (email === storedEmail && password === storedPassword) {
+      window.location.href = "http://localhost:3000/profile";
+    } else {
+      msg.textContent = "Invalid email or password.";
+    }
+  });
+</script>
+
+</body>
+</html>

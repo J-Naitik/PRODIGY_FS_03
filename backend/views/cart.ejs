@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cart - ZustVeg</title>
+  <link rel="shortcut icon" href="/assets/mainlogo.png" type="image/x-icon">
+</head>
+<body style="margin: 0; font-family: sans-serif; background-color: #f7f7f7;">
+
+  <section style="background: #2e7d32; color: white; padding: 10px; text-align: center; font-weight: bold;">
+    <p>🚛 Free Delivery on Orders Over ₹499! Freshness Guaranteed!</p>
+  </section>
+
+  <section style="padding: 20px; min-height: 100vh; background-color: #222;">
+    <h2 style="font-size: 24px; color: #ffffff;">Your Cart</h2>
+    <div style="border-top: 1px solid #ccc; margin: 20px 0; background-color: #333;"></div>
+
+    <div id="cart-container"></div>
+
+    <div style="border-top: 1px solid #ccc; margin: 20px 0;"></div>
+    <h2 id="total-amount" style="font-size: 24px; color: #ffffff;">Total: ₹0.00</h2>
+
+    <a href="http://localhost:3000/checkout" style="display: inline-block; background-color: #ff9800; color: black; padding: 12px 24px; font-size: 1rem; font-weight: bold; border-radius: 8px; text-decoration: none; margin-top: 15px;">Proceed to Checkout</a>
+  </section>
+
+  <footer style="background: #222; color: white; padding: 30px 20px;">
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+      <div style="margin-bottom: 20px;">
+        <h4 style="font-size: 18px; margin-bottom: 10px;">Our Story</h4>
+        <ul style="list-style-type: none; padding: 0;">
+          <li style="margin-bottom: 5px;"><a href="/about" style="color: white; text-decoration: none;">About ZustVeg</a></li>
+          <li style="margin-bottom: 5px;"><a href="/how-it-work" style="color: white; text-decoration: none;">How It Works</a></li>
+          <li style="margin-bottom: 5px;"><a href="/partener-with-us" style="color: white; text-decoration: none;">Partner With Us</a></li>
+        </ul>
+      </div>
+      <div style="margin-bottom: 20px;">
+        <h4 style="font-size: 18px; margin-bottom: 10px;">Help</h4>
+        <ul style="list-style-type: none; padding: 0;">
+          <li style="margin-bottom: 5px;"><a href="/faq" style="color: white; text-decoration: none;">FAQs</a></li>
+          <li style="margin-bottom: 5px;"><a href="/return" style="color: white; text-decoration: none;">Returns</a></li>
+          <li style="margin-bottom: 5px;"><a href="/contact" style="color: white; text-decoration: none;">Contact Us</a></li>
+        </ul>
+      </div>
+      <div style="margin-bottom: 20px;">
+        <h4 style="font-size: 18px; margin-bottom: 10px;">Sign Up</h4>
+        <form>
+          <input type="email" placeholder="Your email" style="padding: 8px; font-size: 14px; border: 1px solid #ccc; border-radius: 5px; width: 70%;" />
+          <button style="background-color: #ff9800; color: black; padding: 8px 12px; border: none; border-radius: 5px; cursor: pointer;">→</button>
+        </form>
+      </div>
+      <div style="margin-bottom: 20px;">
+        <h4 style="font-size: 18px; margin-bottom: 10px;">Follow Us</h4>
+        <p>Instagram | YouTube | Facebook</p>
+      </div>
+    </div>
+    <p style="text-align: center; font-size: 0.9em;">© 2025 ZustVeg. Grown with ❤️ in India.</p>
+    <p style="text-align: center; font-size: 0.9em; margin-top: 2px;">© Made By Naitik Jain</p>
+  </footer>
+
+  <script>
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const container = document.getElementById("cart-container");
+      container.innerHTML = "";
+
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+
+        const card = document.createElement("div");
+        card.setAttribute("style", "display: flex; background: white; border-radius: 10px; padding: 15px; margin: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); align-items: center;");
+
+        card.innerHTML = `
+          <div style="margin-right: 20px; ">
+            <img src="${item.image}" alt="${item.name}" style="max-width: 100px; border-radius: 10px;">
+          </div>
+          <div style="flex-grow: 1; ">
+            <h3 style="margin: 0 0 10px;">${item.name}</h3>
+            <p style="margin: 5px 0;">Price: ₹${item.price}</p>
+            <p style="margin: 5px 0;">Quantity: ${item.quantity}</p>
+            <p style="margin: 5px 0;">Total: ₹${(item.price * item.quantity).toFixed(2)}</p>
+            <button onclick="changeQuantity(${index}, 1)" style="margin: 5px 3px; background-color: #43a047; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-weight: bold;">+</button>
+            <button onclick="changeQuantity(${index}, -1)" style="margin: 5px 3px; background-color: #43a047; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-weight: bold;">−</button>
+            <button onclick="removeItem(${index})" style="margin: 5px 3px; background-color: #43a047; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-weight: bold;">Remove</button>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      document.getElementById("total-amount").innerText = `Total: ₹${total.toFixed(2)}`;
+    }
+
+    function changeQuantity(index, delta) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      cart[index].quantity += delta;
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
+
+    function removeItem(index) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
+
+    window.onload = loadCart;
+  </script>
+
+</body>
+</html>
