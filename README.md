@@ -32,8 +32,6 @@ node app.js
 
 +-----------------------------------------------------------------------------------+
 | Ensure that MongoDB is running locally before executing any scripts.              |          
-|                                                                                   |
-| If using a remote MongoDB instance, update the connection URL accordingly.        |  
-|                                                                                   |
+| If using a remote MongoDB instance, update the connection URL accordingly.        |
 | Re-run init.js if you modify the initial data setup.                              |
 +-----------------------------------------------------------------------------------+
